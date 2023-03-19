@@ -1,0 +1,31 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  font-family: Arvo, serif;
+  background: url("image.png") no-repeat center center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.jumbotron {
+  background-color: transparent;
+  text-align: center;
+  letter-spacing: 2.5px;
+  padding: 10px;
+  margin-top: 150px;
+}
+
+.signup {
+  margin-top: 50px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  padding-top: 10px;
+}
