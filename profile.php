@@ -92,10 +92,10 @@ if ($count == 1) {
 
   <div class="container" id="container">
     <div class="row">
-      <div class="col-md-offset-3 col-md-6">
+      <div class="riderProf col-md-offset-3 col-md-6">
 
-        <h2>General Account Settings:</h2>
-        <div class="table-responsive">
+        <h2>Profile Details</h2>
+        <div class="table-responsive riderTable">
           <table class="table table-hover table-condensed table-bordered">
             <tr data-target="#updateusername" data-toggle="modal">
               <td>Username</td>

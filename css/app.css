@@ -3,12 +3,15 @@ html {
   min-height: 100%;
 }
 
+
 body {
   font-family: Arvo, serif;
   background: url("image.png") no-repeat center center;
   background-attachment: fixed;
   background-size: cover;
 }
+
+
 
 .jumbotron {
   background-color: transparent;
@@ -18,9 +21,11 @@ body {
   margin-top: 150px;
 }
 
+
 .signup {
   margin-top: 50px;
 }
+
 
 .footer {
   position: absolute;
@@ -29,7 +34,6 @@ body {
   width: 100%;
   padding-top: 10px;
 }
-
 
 #myContainer{
   width: 80%;
@@ -70,4 +74,25 @@ body {
   font-size: 0.8rem;
   letter-spacing: 2px;
   font-style: italic;
+}
+
+.riderTable{
+  text-align: center;
+}
+
+.riderProf{
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.riderProf > div {
+  margin-top: 4rem;
+  font-size: 1.2rem;
+}
+
+table, th, td{
+  letter-spacing: 2px;
 }
