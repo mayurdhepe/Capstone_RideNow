@@ -93,10 +93,10 @@ body {
   font-size: 1.2rem;
 }
 
+
 table, th, td{
   letter-spacing: 2px;
 }
-
 
 .driverTable{
   text-align: center;
@@ -115,3 +115,28 @@ table, th, td{
   font-size: 1.2rem;
 }
 
+.trip{
+  margin-top: 3rem;
+}
+
+.journey > div {
+  margin-top: 1rem;
+  letter-spacing: 2px;
+}
+
+.price > div {
+  margin-top: 1rem;
+  letter-spacing: 2px;
+}
+
+.del-btn{
+  margin-top: 3rem;
+}
+
+.trip{
+  margin-left: 10rem;
+}
+
+.createRide{
+ margin-left: 30rem;
+}

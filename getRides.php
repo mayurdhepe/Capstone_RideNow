@@ -23,7 +23,7 @@ if ($result = mysqli_query($link, $sql)) {
                         <div class="seatsavailable">' . $row['seatsavailable'] . ' left</div>
                     </div>
                     <div class="col-sm-2">
-                    <input type="button" class="btn btn-danger" name="deletetrip" value="Delete" id="deletetrip' . $row['ride_id'] . '" data-ride_id="' . $row['ride_id'] . '">
+                    <input type="button" class="btn btn-danger del-btn" name="deletetrip" value="Delete" id="deletetrip' . $row['ride_id'] . '" data-ride_id="' . $row['ride_id'] . '">
                         
                     </div>
                 </div>';
