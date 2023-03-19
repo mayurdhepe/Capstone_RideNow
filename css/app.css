@@ -96,3 +96,22 @@ body {
 table, th, td{
   letter-spacing: 2px;
 }
+
+
+.driverTable{
+  text-align: center;
+}
+
+.driverProf{
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.driverProf > div {
+  margin-top: 4rem;
+  font-size: 1.2rem;
+}
+
