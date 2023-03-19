@@ -24,9 +24,6 @@ if (!isset($_SESSION['user_id'])) {
             margin-top: 120px;
         }
 
-        #notePad,
-        #allNotes,
-        #done,
         .delete {
             display: none;
         }
@@ -45,7 +42,7 @@ if (!isset($_SESSION['user_id'])) {
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">RideNow</a>
+        <a class="navbar-brand" href="loggedInDriver.php">RideNow</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -53,15 +50,9 @@ if (!isset($_SESSION['user_id'])) {
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
                 <li class="nav-item"><a class="nav-link" href="profileDriver.php">Profile</a></li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Create a Ride</a>
+                    <a class="nav-link" href="#">Create a Ride<span class="sr-only">(current)</span></a></a>
                 </li>
 
 
