@@ -41,3 +41,33 @@ body {
   margin-top: 2rem;
   letter-spacing: 3px;
 }
+
+.headingAndPic{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+.headingAndPic > div {
+  width: max-content;
+}
+
+.homeHeading {
+  white-space: nowrap;
+}
+
+.homeHeading > h1 {
+  font-size: 4rem;
+  letter-spacing: 4px;
+  font-weight: 900;
+}
+
+.homeHeading > h3 {
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  font-style: italic;
+}

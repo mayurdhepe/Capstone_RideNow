@@ -31,7 +31,7 @@ include('logout.php');
           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+          <a class="nav-link" href="about.php">About</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -60,7 +60,15 @@ include('logout.php');
     </div>
   </nav>
 
-  <div class="jumbotron" id="myContainer">
+
+  <div class="headingAndPic">
+    <div class="homeHeading">
+      <h1>Ride Now</h1>
+      <h3>Same Destination, More Companions!</h3>
+    </div>
+    <div class="jumbotron" id="myContainer">
+      <img height="500px" width="600px" src="home.png" alt="">
+    </div>
   </div>
 
 
