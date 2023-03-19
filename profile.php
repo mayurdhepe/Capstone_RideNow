@@ -67,7 +67,7 @@ if ($count == 1) {
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">RideNow</a>
+    <a class="navbar-brand" href="loggedIn.php">RideNow</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -75,19 +75,11 @@ if ($count == 1) {
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/RideNow/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
         <li class="nav-item"><a class="nav-link" href="profile.php">Profile<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Search Rides</a>
         </li>
-
-
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -100,10 +92,10 @@ if ($count == 1) {
 
   <div class="container" id="container">
     <div class="row">
-      <div class="col-md-offset-3 col-md-6">
+      <div class="riderProf col-md-offset-3 col-md-6">
 
-        <h2>General Account Settings:</h2>
-        <div class="table-responsive">
+        <h2>Profile Details</h2>
+        <div class="table-responsive riderTable">
           <table class="table table-hover table-condensed table-bordered">
             <tr data-target="#updateusername" data-toggle="modal">
               <td>Username</td>
