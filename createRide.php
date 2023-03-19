@@ -68,10 +68,10 @@ if (!isset($_SESSION['user_id'])) {
 
 
 
-    <div class="container" id="container">
+    <div class="container rideContainer" id="container">
         <div class="row">
-            <div class="col-sm-8 col-sm-offset-2">
-                <div>
+            <div class="col-sm-12 col-sm-offset-2">
+                <div class="createRide">
                     <button type="button" class="btn btn-lg" data-target="#rideAddModal" data-toggle="modal">
                         Create A Ride
                     </button>
