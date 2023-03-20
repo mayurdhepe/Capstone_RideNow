@@ -100,6 +100,15 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </nav>
 
+    <div class="headingAndPic">
+    <div class="homeHeading">
+      <h1>Ride Now</h1>
+      <h3>Same Destination, More Companions!</h3>
+    </div>
+    <div class="jumbotron" id="myContainer">
+      <img height="500px" width="600px" src="home.png" alt="">
+    </div>
+  </div>
     <div class="footer">
         <div class="container">
             <p>Fantastic-4 Copyright &copy;
