@@ -1,2 +1,2 @@
-# Capstone_RideNow
+# Capstone RideNow
 RideNow - Ride Sharing web application
