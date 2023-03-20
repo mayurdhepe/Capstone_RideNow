@@ -58,7 +58,7 @@ if (!$result) {
 $message = "Please click on this link to reset your password:\n\n";
 $message .= "http://grad-project.host20.uk/RideNow/resetDriver.php?user_id=$user_id&key=$key";
 if (mail($email, 'Reset your password', $message, 'From:' . 'gradproj@grad-project.host20.uk')) {
-    echo "<div class='alert alert-success'>An email has been sent to $email. Please click on the link to reset your password.</div>";
+    echo "<div class='alert alert-success'>An email has been sent to you on $email. Please follow the steps to reset your password.</div>";
 }
 
 ?>
