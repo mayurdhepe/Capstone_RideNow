@@ -37,7 +37,7 @@ if (!$result) {
 } else {
     $message = "Please click on this link prove that you own this email:\n\n";
     $message .= "http://grad-project.host20.uk/RideNow/activateNew.php?email=" . urlencode($email) . "&newemail=" . urlencode($newemail) . "&key=$activationKey";
-    if (mail($newemail, 'Email Update for you Online Notes App', $message, 'From:' . 'gradproj@grad-project.host20.uk')) {
+    if (mail($newemail, 'Email Update', $message, 'From:' . 'gradproj@grad-project.host20.uk')) {
         echo "<div class='alert alert-success'>An email has been sent to $newemail. Please click on the link to prove you own that email address.</div>";
     }
 
