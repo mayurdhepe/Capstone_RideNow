@@ -32,7 +32,7 @@ if ($errors) {
     }
     $count = mysqli_num_rows($result);
     if ($count !== 1) {
-        echo '<div class="alert alert-danger">Wrong Username or Password</div>';
+        echo '<div class="alert alert-danger">Incorrect Username or Password</div>';
     } else {
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $_SESSION['user_id'] = $row['user_id'];
