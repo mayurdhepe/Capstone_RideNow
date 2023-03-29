@@ -150,6 +150,19 @@ table, th, td{
   margin-left: 10rem;
 }
 
-#departure{
-  margin-bottom: 5rem;
+
+.sortsearchrides{
+  display: flex;
+  flex-direction: row;
+  margin-left: 25rem;
+  margin-top: 5rem;
+}
+
+.sortBtn{
+  margin-left: 3rem;
+}
+
+#ridelist{
+  width: 120%;
+  margin-left: 3rem;
 }
