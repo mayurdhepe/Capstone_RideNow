@@ -19,6 +19,9 @@ if (!isset($_SESSION['user_id'])) {
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUZnI9Gv3hxXe36FroZq9CyzkPAweUm5c&libraries=places"></script>
+
     <style>
         #container {
             margin-top: 120px;
@@ -37,10 +40,44 @@ if (!isset($_SESSION['user_id'])) {
             border: 1px solid #555;
             color: #EEE;
         }
+
+        #googleMap,
+        #googleMap2 {
+            height: 400px;
+            width: 400px;
+        }
+
+        .pac-container {
+            z-index: 10000 !important;
+        }
+
+        #ridelist{
+            margin-top:4rem;
+            margin-left:-10rem;
+        }
+        #googleMap{
+            margin:auto;
+            margin-bottom:2rem;
+        }
+        #recommendedprice1, #recommendedprice2{
+            background-color:#FFF2CC;
+            border-radius:3px;
+            margin-bottom:2px;
+        }
+        .createRide{
+            margin-left:30rem;
+        }
+
+        #googleMap2{
+            margin-left:2rem;
+            margin-bottom:2rem;
+        }
+
     </style>
 </head>
 
 <body>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="loggedInDriver.php">RideNow</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -99,6 +136,8 @@ if (!isset($_SESSION['user_id'])) {
 
                         <div id="result"></div>
 
+                        <!--Google Map-->
+                        <div id="googleMap"></div>
 
 
                         <div class="form-group">
@@ -112,6 +151,7 @@ if (!isset($_SESSION['user_id'])) {
                                 class="form-control">
                         </div>
                         <div class="form-group">
+                            <div id="recommendedprice1"></div>
                             <label for="price" class="sr-only">Price:</label>
                             <input type="number" name="price" id="price" placeholder="Price" class="form-control">
                         </div>
@@ -139,6 +179,62 @@ if (!isset($_SESSION['user_id'])) {
     </form>
 
 
+    <form method="post" id="editrideform">
+        <div class="modal" id="editrideModal" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <!--Error message from PHP file-->
+                        <div id="result2"></div>
+
+                        <!--Google Map-->
+                        <div id="googleMap2"></div>
+
+                        <div class="form-group">
+                            <label for="departure2" class="sr-only">Start Location:</label>
+                            <input type="text" name="departure2" id="departure2" placeholder="Departure"
+                                class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="destination2" class="sr-only">Destination:</label>
+                            <input type="text" name="destination2" id="destination2" placeholder="Destination"
+                                class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <div id="recommendedprice2"></div>
+                            <label for="price2" class="sr-only">Price:</label>
+                            <input type="number" name="price2" id="price2" placeholder="Price" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="seatsavailable2" class="sr-only">Seats available:</label>
+                            <input type="number" name="seatsavailable2" placeholder="Seats available"
+                                class="form-control" id="seatsavailable2">
+                        </div>
+                        <div class="form-group ">
+                            <label for="date2" class="sr-only">Date: </label>
+                            <input name="date2" id="date2" readonly="readonly" placeholder="Date" class="form-control">
+                        </div>
+                        <div class="form-group time">
+                            <label for="time2" class="sr-only">Time: </label>
+                            <input type="time" name="time2" id="time2" placeholder="Time" class="form-control">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input class="btn btn-primary" name="updateride" type="submit" id="updateride"
+                            value="Edit Ride">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
     <div class="footer">
         <div class="container">
             <p>Fantastic-4 Copyright &copy;
@@ -148,10 +244,10 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </div>
 
-
     <script src="js/bootstrap.min.js"></script>
-    <script src="ride.js"></script>
 
+    <script src="ride.js"></script>
+    <script src="googleapis.js"></script>
 </body>
 
 </html>

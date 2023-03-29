@@ -138,5 +138,32 @@ table, th, td{
 }
 
 .createRide{
- margin-left: 30rem;
+ margin-left: 20rem;
+ margin-top: 10rem;
+}
+
+.logIn{
+  text-decoration: none;
+}
+
+#searchRide{
+  margin-left: 10rem;
+}
+
+
+.sortsearchrides{
+  display: flex;
+  flex-direction: row;
+  margin-left: 25rem;
+  margin-top: 5rem;
+}
+
+.sortBtn{
+  margin-left: 3rem;
+}
+
+#ridelist{
+  width: 120%;
+  margin-left: 3rem;
+  
 }
