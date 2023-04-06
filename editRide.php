@@ -1,39 +1,27 @@
 <?php
-
 session_start();
 include('dbConnect.php');
-
-$missingdeparture = '<p><strong>Please enter your departure!</strong></p>';
-$invaliddeparture = '<p><strong>Please enter a valid departure!</strong></p>';
+$missingdeparture = '<p><strong>Please enter your start location</strong></p>';
+$invaliddeparture = '<p><strong>Please enter a valid start location</strong></p>';
 $missingdestination = '<p><strong>Please enter your destination!</strong></p>';
 $invaliddestination = '<p><strong>Please enter a valid destination!</strong></p>';
 $missingprice = '<p><strong>Please choose a price per seat!</strong></p>';
 $invalidprice = '<p><strong>Please choose a valid price per seat using numbers only!!</strong></p>';
 $missingseatsavailable = '<p><strong>Please select the number of available seats!</strong></p>';
 $invalidseatsavailable = '<p><strong>The number of available seats should contain digits only!</strong></p>';
+$missingfrequency = '<p><strong>Please select a frequency!</strong></p>';
+$missingdays = '<p><strong>Please select at least one weekday!</strong></p>';
 $missingdate = '<p><strong>Please choose a date for your trip!</strong></p>';
 $missingtime = '<p><strong>Please choose a time for your trip!</strong></p>';
 
-$departure = $_POST["departure"];
-$destination = $_POST["destination"];
-$price = $_POST["price"];
-$seatsavailable = $_POST["seatsavailable"];
-$date = $_POST["date"];
-$time = $_POST["time"];
-
-if (!isset($_POST["departureLatitude"]) or !isset($_POST["departureLongitude"])) {
-    $errors .= $invaliddeparture;
-} else {
-    $departureLatitude = $_POST["departureLatitude"];
-    $departureLongitude = $_POST["departureLongitude"];
-}
-
-if (!isset($_POST["destinationLatitude"]) or !isset($_POST["destinationLongitude"])) {
-    $errors .= $invaliddestination;
-} else {
-    $destinationLatitude = $_POST["destinationLatitude"];
-    $destinationLongitude = $_POST["destinationLongitude"];
-}
+//Get inputs:
+$ride_id = $_POST["ride_id"];
+$departure = $_POST["departure2"];
+$destination = $_POST["destination2"];
+$price = $_POST["price2"];
+$seatsavailable = $_POST["seatsavailable2"];
+$date = $_POST["date2"];
+$time = $_POST["time2"];
 
 if (!$departure) {
     $errors .= $missingdeparture;
@@ -57,7 +45,6 @@ if (!$price) {
     $price = filter_var($price, FILTER_SANITIZE_STRING);
 }
 
-
 if (!$seatsavailable) {
     $errors .= $missingseatsavailable;
 } elseif (
@@ -68,8 +55,15 @@ if (!$seatsavailable) {
     $seatsavailable = filter_var($seatsavailable, FILTER_SANITIZE_STRING);
 }
 
-$status = 0;
+if (!$date) {
+    $errors .= $missingdate;
+}
+if (!$time) {
+    $errors .= $missingtime;
+}
 
+
+//if there is an error print error message
 if ($errors) {
     $resultMessage = "<div class='alert alert-danger'>$errors</div>";
     echo $resultMessage;
@@ -77,12 +71,10 @@ if ($errors) {
 
     $departure = mysqli_real_escape_string($link, $departure);
     $destination = mysqli_real_escape_string($link, $destination);
-
-    $sql = "INSERT INTO Rides (`user_id`,`startlocation`, `destination`, `price`, `seatsavailable`, `capacity`, `date`, `time`, `startlatitude`, `startlongitude`, `endlatitude`, `endlongitude`, `status`) VALUES ('" . $_SESSION['user_id'] . "', '$departure','$destination','$price','$seatsavailable','$seatsavailable','$date','$time', '$departureLatitude', '$departureLongitude', '$destinationLatitude', '$destinationLongitude', '$status')";
+    $sql = "UPDATE Rides SET `startlocation`= '$departure',`destination`='$destination',`price`='$price', `seatsavailable`='$seatsavailable', `capacity`='$seatsavailable', `date`='$date', `time`='$time'  WHERE `ride_id`='$ride_id'";
     $results = mysqli_query($link, $sql);
-
     if (!$results) {
-        echo '<div class=" alert alert-danger">There was an error! The trip could not be added to database!</div>';
+        echo '<div class=" alert alert-danger">There was an error! The ride could not be updated!</div>';
     }
 }
 

@@ -50,29 +50,6 @@ if (!isset($_SESSION['user_id'])) {
         .pac-container {
             z-index: 10000 !important;
         }
-
-        #ridelist{
-            margin-top:4rem;
-            margin-left:-10rem;
-        }
-        #googleMap{
-            margin:auto;
-            margin-bottom:2rem;
-        }
-        #recommendedprice1, #recommendedprice2{
-            background-color:#FFF2CC;
-            border-radius:3px;
-            margin-bottom:2px;
-        }
-        .createRide{
-            margin-left:30rem;
-        }
-
-        #googleMap2{
-            margin-left:2rem;
-            margin-bottom:2rem;
-        }
-
     </style>
 </head>
 
@@ -187,6 +164,9 @@ if (!isset($_SESSION['user_id'])) {
                         <button class="close" data-dismiss="modal">
                             &times;
                         </button>
+                        <h4 id="myModalLabel2">
+                            Edit Ride:
+                        </h4>
                     </div>
                     <div class="modal-body">
 

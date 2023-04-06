@@ -14,27 +14,6 @@ include('logout.php');
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/app.css" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
-
-  <style>
-
-  #carMake{
-    border:1px solid darkgray;
-    
-  }
-
-  #carModel{
-    border:1px solid darkgray;
-  }
-
-  #dropdowns{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width:80%;
-  }
-
-  </style>
-
 </head>
 
 <body>
@@ -48,6 +27,9 @@ include('logout.php');
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="about.php">About</a>
         </li>
@@ -247,49 +229,15 @@ include('logout.php');
               <input class="form-control" type="password" name="password2" id="password2" placeholder="Confirm password"
                 maxlength="30">
             </div>
-
-            <div id="dropdowns">
             <div class="form-group">
-              <!-- <label for="carMake" class="sr-only">Car Make:</label> -->
-              <select class="form-select" name="carMake" id="carMake" aria-label=".form-select-lg example">
-                <option selected>Select Car Make</option>
-                <option value="Toyota">Toyota</option>
-                <option value="Honda">Honda</option>
-                <option value="Ford">Ford</option>
-                <option value="Chevrolet">Chevrolet</option>
-                <option value="Nissan">Nissan</option>
-              </select>
-              <!-- <input class="form-control" type="text" name="carMake" id="carMake" placeholder="Enter Car Make"
-                maxlength="30"> -->
+              <label for="carMake" class="sr-only">Car Make:</label>
+              <input class="form-control" type="text" name="carMake" id="carMake" placeholder="Enter Car Make"
+                maxlength="30">
             </div>
             <div class="form-group">
-              <!-- <label for="carModel" class="sr-only">Car Model:</label> -->
-              <select class="form-select" name="carModel" id="carModel" aria-label=".form-select-lg example">
-                <option selected>Select Car Model</option>
-                <option value="Camry">Camry</option>
-                <option value="Corolla">Corolla</option>
-                <option value="Prius">Prius</option>
-
-                <option value="Civic">Civic</option>
-                <option value="Accord">Accord</option>
-                <option value="CR-V">CR-V</option>
-
-                <option value="Mustang">Mustang</option>
-                <option value="F-150">F-150</option>
-                <option value="Explorer">Explorer</option>
-
-                <option value="Silverado">Silverado</option>
-                <option value="Camaro">Camaro</option>
-                <option value="Equinox">Equinox</option>
-
-                <option value="Altima">Altima</option>
-                <option value="Rogue">Rogue</option>
-                <option value="Sentra">Sentra</option>
-
-              </select>
-              <!-- <input class="form-control" type="text" name="carModel" id="carModel" placeholder="Enter Car Model"
-                maxlength="30"> -->
-            </div>
+              <label for="carModel" class="sr-only">Car Model:</label>
+              <input class="form-control" type="text" name="carModel" id="carModel" placeholder="Enter Car Model"
+                maxlength="30">
             </div>
             <div class="form-group">
               <label for="seats" class="sr-only">Seating Capacity:</label>
