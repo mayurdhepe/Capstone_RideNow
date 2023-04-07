@@ -45,7 +45,10 @@ if (!isset($_SESSION['user_id'])) {
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" href="profile.php">Profile</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Search Rides</a>
+                    <a class="nav-link" href="searchRide.php">Search Rides</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="riderMyRides.php">My Rides</a>
                 </li>
 
 
@@ -60,14 +63,14 @@ if (!isset($_SESSION['user_id'])) {
     </nav>
 
     <div class="headingAndPic">
-    <div class="homeHeading">
-      <h1>Ride Now</h1>
-      <h3>Same Destination, More Companions!</h3>
+        <div class="homeHeading">
+            <h1>Ride Now</h1>
+            <h3>Same Destination, More Companions!</h3>
+        </div>
+        <div class="jumbotron" id="myContainer">
+            <img height="500px" width="600px" src="home.png" alt="">
+        </div>
     </div>
-    <div class="jumbotron" id="myContainer">
-      <img height="500px" width="600px" src="home.png" alt="">
-    </div>
-  </div>
     <div class="footer">
         <div class="container">
             <p>Fantastic-4 Copyright &copy;

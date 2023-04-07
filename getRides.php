@@ -12,19 +12,20 @@ if ($result = mysqli_query($link, $sql)) {
 
             echo
                 '<div class="row trip">
-                    <div class="col-sm-8 journey">
+                    <div class="col-sm-6 journey">
                         <div><span class="departure">Departure:</span> ' . $row['startlocation'] . '.</div>
                         <div><span class="destination">Destination:</span> ' . $row['destination'] . '.</div>
                         <div class="time">' . $time . '</div>
                     </div>
-                    <div class="col-sm-2 price">
+                    <div class="col-sm-3 price">
                         <div class="price">$' . $row['price'] . '</div>
-                        <div class="perseat">Per Seat</div>
                         <div class="seatsavailable">' . $row['seatsavailable'] . ' left</div>
+                        <div class="seatsavailable">' . ($row['capacity'] - $row['seatsavailable']) . ' joined</div>
                     </div>
-                    <div class="col-sm-2">
-                    <input type="button" class="btn btn-danger del-btn" name="deletetrip" value="Delete" id="deletetrip' . $row['ride_id'] . '" data-ride_id="' . $row['ride_id'] . '">
-                        
+                    <div class="col-sm-3">
+                    ' . ($row['status'] == 2 ? '<input type="button" class="btn btn-danger del-btn" name="completed" value="Completed" id="completed' . $row['ride_id'] . '" data-ride_id="' . $row['ride_id'] . '">' : (
+                    $row['status'] == 0 ?
+                    '<input type="button" class="btn btn-warning del-btn" name="edittrip" data-target="#editrideModal" data-toggle="modal" value="Edit" id="edittrip' . $row['ride_id'] . '" data-ride_id="' . $row['ride_id'] . '"> <input type="button" class="btn btn-danger del-btn" name="deletetrip" value="Delete" id="deletetrip' . $row['ride_id'] . '" data-ride_id="' . $row['ride_id'] . '"> <input type="button" class="btn btn-success del-btn" name="starttrip" value="Start" id="starttrip' . $row['ride_id'] . '" data-ride_id="' . $row['ride_id'] . '">' : '<input type="button" class="btn btn-danger del-btn" name="endtrip" value="End" id="endtrip' . $row['ride_id'] . '" data-ride_id="' . $row['ride_id'] . '">')) . '
                     </div>
                 </div>';
         }

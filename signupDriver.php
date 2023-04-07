@@ -140,7 +140,7 @@ if (!$result) {
 $message = "Please the link below to activate your account:\n\n";
 $message .= "http://grad-project.host20.uk/RideNow/activateDriver.php?email=" . urlencode($email) . "&key=$activationKey";
 if (mail($email, 'Confirm your Registration', $message, 'From:' . 'gradproj@grad-project.host20.uk')) {
-    echo "<div class='alert alert-success'>Thank you for the registration! An email has been sent to $email.Please follow the steps to activate your account.</div>";
+    echo "<div class='alert alert-success'>Thank you for the registration! An email has been sent to $email, please check.</div>";
 } else {
     echo "<div class='alert alert-success'>FAIL!!!.</div>";
 }
