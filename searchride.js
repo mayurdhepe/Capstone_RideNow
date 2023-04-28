@@ -79,7 +79,8 @@ $(function () {
         method: "POST",
         data: { ride_id: evt.target.getAttribute("data-ride_id") },
         success: function () {
-          location.reload();
+          //location.reload();
+          window.location = "riderMyRides.php";
         },
         error: function () {
           $("#ridelist").html(
@@ -87,6 +88,28 @@ $(function () {
           );
           $("#ridelist").hide();
           $("#ridelist").fadeIn();
+        },
+      });
+    });
+
+    $("[id*='viewDriverButton']").click(function (evt) {
+      rateId = evt.target.getAttribute("data-ride_id");
+      $("#driverView").html("");
+      $.ajax({
+        url: "getdriverforviewing.php",
+        method: "POST",
+        data: { ride_id: evt.target.getAttribute("data-ride_id") },
+        success: function (data2) {
+          $("#driverView").html(data2);
+          $("#driverView").hide();
+          $("#driverView").fadeIn();
+        },
+        error: function () {
+          $("#driverView").html(
+            "<div class='alert alert-danger'>There was an error with the Ajax Call. Please try again later.</div>"
+          );
+          $("#driverView").hide();
+          $("#driverView").fadeIn();
         },
       });
     });
