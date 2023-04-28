@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['user_id'])) {
     header("location: index.php");
 }
+include('getProfilePicture.php');
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +29,17 @@ if (!isset($_SESSION['user_id'])) {
         .buttons {
             margin-bottom: 20px;
         }
+
+        .preview {
+            
+            border-radius: 50%;
+        }
+
+        .preview2 {
+            height: auto;
+            max-width: 100%;
+            border-radius: 50%;
+        }
     </style>
 </head>
 
@@ -47,13 +59,23 @@ if (!isset($_SESSION['user_id'])) {
                 <li class="nav-item">
                     <a class="nav-link" href="searchRide.php">Search Rides</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="riderMyRides.php">My Rides</a>
                 </li>
 
 
             </ul>
             <ul class="navbar-nav">
+                <li><a href="#">
+                        <?php
+                        if (empty($picture)) {
+                            echo "<div class='image_preview'><img class='preview' src='profilepictures/noimage.jpg' /></div>";
+                        } else {
+                            echo "<div class='image_preview'><img class='preview' src='$picture' /></div>";
+                        }
+
+                        ?>
+                    </a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?logout=1">Log Out</a>
                 </li>
@@ -71,6 +93,13 @@ if (!isset($_SESSION['user_id'])) {
             <img height="500px" width="600px" src="home.png" alt="">
         </div>
     </div>
+
+    <?php
+
+    include("profileTemplate.php");
+
+    ?>
+
     <div class="footer">
         <div class="container">
             <p>Fantastic-4 Copyright &copy;
@@ -85,6 +114,7 @@ if (!isset($_SESSION['user_id'])) {
 
     <script src="js/bootstrap.min.js"></script>
     <script src="app.js"></script>
+    <script src="profile.js"></script>
 </body>
 
 </html>

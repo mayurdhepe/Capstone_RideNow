@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['user_id'])) {
     header("location: index.php");
 }
+include('getDriverProfilePicture.php');
 ?>
 
 <!DOCTYPE html>
@@ -70,6 +71,17 @@ if (!isset($_SESSION['user_id'])) {
         .notes {
             margin-bottom: 100px;
         }
+
+        .preview {
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .preview2 {
+            height: auto;
+            max-width: 100%;
+            border-radius: 50%;
+        }
     </style>
 </head>
 
@@ -92,6 +104,16 @@ if (!isset($_SESSION['user_id'])) {
 
             </ul>
             <ul class="navbar-nav">
+                <li><a href="#">
+                        <?php
+                        if (empty($picture)) {
+                            echo "<div class='image_preview'><img class='preview' src='profilepictures/noimage.jpg' /></div>";
+                        } else {
+                            echo "<div class='image_preview'><img class='preview' src='$picture' /></div>";
+                        }
+
+                        ?>
+                    </a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?logout=1">Log Out</a>
                 </li>
@@ -101,14 +123,20 @@ if (!isset($_SESSION['user_id'])) {
     </nav>
 
     <div class="headingAndPic">
-    <div class="homeHeading">
-      <h1>Ride Now</h1>
-      <h3>Same Destination, More Companions!</h3>
+        <div class="homeHeading">
+            <h1>Ride Now</h1>
+            <h3>Same Destination, More Companions!</h3>
+        </div>
+        <div class="jumbotron" id="myContainer">
+            <img height="500px" width="600px" src="home.png" alt="">
+        </div>
     </div>
-    <div class="jumbotron" id="myContainer">
-      <img height="500px" width="600px" src="home.png" alt="">
-    </div>
-  </div>
+
+    <?php
+
+    include("profileTemplate.php");
+
+    ?>
     <div class="footer">
         <div class="container">
             <p>Fantastic-4 Copyright &copy;
@@ -121,6 +149,7 @@ if (!isset($_SESSION['user_id'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="app.js"></script>
+    <script src="profileDriver.js"></script>
 </body>
 
 </html>
