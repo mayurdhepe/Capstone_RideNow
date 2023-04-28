@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['user_id'])) {
     header("location: index.php");
 }
+include('getDriverProfilePicture.php');
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +51,65 @@ if (!isset($_SESSION['user_id'])) {
         .pac-container {
             z-index: 10000 !important;
         }
+
+        #ridelist {
+            margin-top: 4rem;
+            margin-left: -10rem;
+        }
+
+        #googleMap {
+            margin: auto;
+            margin-bottom: 2rem;
+        }
+
+        #recommendedprice1,
+        #recommendedprice2 {
+            background-color: #FFF2CC;
+            border-radius: 3px;
+            margin-bottom: 2px;
+        }
+
+        .createRide {
+            margin-left: 30rem;
+        }
+
+        #googleMap2 {
+            margin-left: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .preview {
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .preview2 {
+            height: auto;
+            max-width: 100%;
+            border-radius: 50%;
+        }
+
+        .footer {
+            margin-top: 5rem;
+            position: fixed;
+            left: 0px;
+            bottom: 0px;
+        }
+
+        #ridelist {
+            margin-bottom: 5rem;
+        }
+
+
+        .rating {
+            width: 180px;
+        }
+
+        .rating__star {
+            cursor: pointer;
+            color: #dabd18b2;
+        }
+
     </style>
 </head>
 
@@ -72,6 +132,16 @@ if (!isset($_SESSION['user_id'])) {
 
             </ul>
             <ul class="navbar-nav">
+                <li><a href="#">
+                        <?php
+                        if (empty($picture)) {
+                            echo "<div class='image_preview'><img class='preview' src='profilepictures/noimage.jpg' /></div>";
+                        } else {
+                            echo "<div class='image_preview'><img class='preview' src='$picture' /></div>";
+                        }
+
+                        ?>
+                    </a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?logout=1">Log Out</a>
                 </li>
@@ -97,6 +167,17 @@ if (!isset($_SESSION['user_id'])) {
 
         </div>
     </div>
+
+    <div class="footer">
+
+        <p>Fantastic-4 Copyright &copy;
+            <?php $dt = date("Y");
+            echo $dt ?>.
+        </p>
+
+    </div>
+
+    <div id="dist" style="display: none;"></div>
 
 
     <form method="post" id="formAddRide">
@@ -155,6 +236,61 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </form>
 
+    <form method="post" id="formRateRiders">
+        <div class="modal" id="rateRidersModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 id="myModalLabel">
+                            Rate Your Riders
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div id="ridersListRating">
+
+
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <form method="post" id="formViewRiders">
+        <div class="modal" id="viewRidersModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 id="myModalLabel">
+                            Riders Joined
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div id="ridersList">
+
+
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
 
     <form method="post" id="editrideform">
         <div class="modal" id="editrideModal" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
@@ -164,9 +300,6 @@ if (!isset($_SESSION['user_id'])) {
                         <button class="close" data-dismiss="modal">
                             &times;
                         </button>
-                        <h4 id="myModalLabel2">
-                            Edit Ride:
-                        </h4>
                     </div>
                     <div class="modal-body">
 
@@ -191,11 +324,11 @@ if (!isset($_SESSION['user_id'])) {
                             <label for="price2" class="sr-only">Price:</label>
                             <input type="number" name="price2" id="price2" placeholder="Price" class="form-control">
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="seatsavailable2" class="sr-only">Seats available:</label>
                             <input type="number" name="seatsavailable2" placeholder="Seats available"
                                 class="form-control" id="seatsavailable2">
-                        </div>
+                        </div> -->
                         <div class="form-group ">
                             <label for="date2" class="sr-only">Date: </label>
                             <input name="date2" id="date2" readonly="readonly" placeholder="Date" class="form-control">
@@ -215,19 +348,20 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </form>
 
-    <div class="footer">
-        <div class="container">
-            <p>Fantastic-4 Copyright &copy;
-                <?php $dt = date("Y");
-                echo $dt ?>.
-            </p>
-        </div>
-    </div>
+    <?php
+
+    include("profileTemplate.php");
+
+    ?>
+
+
 
     <script src="js/bootstrap.min.js"></script>
 
     <script src="ride.js"></script>
     <script src="googleapis.js"></script>
+    <script src="profileDriver.js"></script>
+    <script src="https://kit.fontawesome.com/1f2bae3960.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
