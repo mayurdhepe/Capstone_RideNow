@@ -20,6 +20,7 @@ $price = $_POST["price"];
 $seatsavailable = $_POST["seatsavailable"];
 $date = $_POST["date"];
 $time = $_POST["time"];
+$dist = $_POST["distance"];
 
 if (!isset($_POST["departureLatitude"]) or !isset($_POST["departureLongitude"])) {
     $errors .= $invaliddeparture;
@@ -78,7 +79,7 @@ if ($errors) {
     $departure = mysqli_real_escape_string($link, $departure);
     $destination = mysqli_real_escape_string($link, $destination);
 
-    $sql = "INSERT INTO Rides (`user_id`,`startlocation`, `destination`, `price`, `seatsavailable`, `capacity`, `date`, `time`, `startlatitude`, `startlongitude`, `endlatitude`, `endlongitude`, `status`) VALUES ('" . $_SESSION['user_id'] . "', '$departure','$destination','$price','$seatsavailable','$seatsavailable','$date','$time', '$departureLatitude', '$departureLongitude', '$destinationLatitude', '$destinationLongitude', '$status')";
+    $sql = "INSERT INTO Rides (`user_id`,`startlocation`, `destination`, `price`, `seatsavailable`, `capacity`, `date`, `time`, `startlatitude`, `startlongitude`, `endlatitude`, `endlongitude`, `status`, `distance`) VALUES ('" . $_SESSION['user_id'] . "', '$departure','$destination','$price','$seatsavailable','$seatsavailable','$date','$time', '$departureLatitude', '$departureLongitude', '$destinationLatitude', '$destinationLongitude', '$status', '$dist')";
     $results = mysqli_query($link, $sql);
 
     if (!$results) {

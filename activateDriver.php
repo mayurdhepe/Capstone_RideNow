@@ -45,6 +45,9 @@ include('driverDao.php');
             <li class="nav-item">
             <a class="nav-link" href="about.php">About</a>
             </li>
+            <li class="nav-item">
+            <a class="nav-link" href="metrics.php">Metrics</a>
+            </li>
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -259,14 +262,39 @@ include('driverDao.php');
                 maxlength="30">
             </div>
             <div class="form-group">
-              <label for="carMake" class="sr-only">Car Make:</label>
-              <input class="form-control" type="text" name="carMake" id="carMake" placeholder="Enter Car Make"
-                maxlength="30">
+            <select class="form-select" name="carMake" id="carMake" aria-label=".form-select-lg example">
+                <option selected>Select Car Make</option>
+                <option value="Toyota">Toyota</option>
+                <option value="Honda">Honda</option>
+                <option value="Ford">Ford</option>
+                <option value="Chevrolet">Chevrolet</option>
+                <option value="Nissan">Nissan</option>
+              </select>
             </div>
             <div class="form-group">
-              <label for="carModel" class="sr-only">Car Model:</label>
-              <input class="form-control" type="text" name="carModel" id="carModel" placeholder="Enter Car Model"
-                maxlength="30">
+            <select class="form-select"  name="carModel" id="carModel" aria-label=".form-select-lg example">
+                <option selected>Select Car Model</option>
+                <option value="Camry">Camry</option>
+                <option value="Corolla">Corolla</option>
+                <option value="Prius">Prius</option>
+
+                <option value="Civic">Civic</option>
+                <option value="Accord">Accord</option>
+                <option value="CR-V">CR-V</option>
+
+                <option value="Mustang">Mustang</option>
+                <option value="F-150">F-150</option>
+                <option value="Explorer">Explorer</option>
+
+                <option value="Silverado">Silverado</option>
+                <option value="Camaro">Camaro</option>
+                <option value="Equinox">Equinox</option>
+
+                <option value="Altima">Altima</option>
+                <option value="Rogue">Rogue</option>
+                <option value="Sentra">Sentra</option>
+
+              </select>
             </div>
             <div class="form-group">
               <label for="seats" class="sr-only">Seating Capacity:</label>
