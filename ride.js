@@ -3,6 +3,8 @@ $(function () {
   var ride;
   var geocoder = new google.maps.Geocoder();
 
+  let rideDistance = 0;
+
   var myLatLng = { lat: 37.229, lng: -80.4139 };
   var mapOptions = {
     center: myLatLng,
@@ -53,6 +55,8 @@ $(function () {
           let dist = parseInt(
             response["routes"][0]["legs"][0]["distance"]["text"].split(" ")[0]
           );
+          rideDistance = dist;
+          console.log(rideDistance);
           let recommendedprice = parseInt(dist * 0.25);
           if (recommendedprice < 5) recommendedprice = 5;
           document.getElementById("recommendedprice2").innerText =
@@ -121,7 +125,7 @@ $(function () {
   }
 
   function editRide() {
-    console.log(data);
+    console.log("inside editride()" + data);
     $.ajax({
       url: "editRide.php",
       data: data,
@@ -131,6 +135,7 @@ $(function () {
         if (data2) {
           $("#result2").html(data2);
           $("#result2").slideDown();
+          $("#editrideform")[0].reset();
         } else {
           getRides();
           $("#result2").hide();
@@ -167,16 +172,17 @@ $(function () {
     });
   }
 
+  let editId = null;
   function setEvtListeners() {
-    let editId = null;
     $("[id*='edittrip']").click(function (evt) {
-      console.log("edittrip");
       editId = evt.target.getAttribute("data-ride_id");
       $("#result2").html("");
       $.ajax({
         url: "getridedetails.php",
         method: "POST",
-        data: { ride_id: evt.target.getAttribute("data-ride_id") },
+        data: {
+          ride_id: evt.target.getAttribute("data-ride_id"),
+        },
         success: function (data2) {
           ride = JSON.parse(data2);
           //fill edit trip form inputs using AJAX returned JSON data
@@ -193,17 +199,22 @@ $(function () {
       });
 
       // Click on Edit Trip Button
-      $("#editrideform").submit(function (event) {
-        $("#result2").hide();
-        // $("#spinner").css("display", "block");
-        event.preventDefault();
-        data = $("#editrideform").serializeArray();
-        data.push({
-          name: "ride_id",
-          value: editId,
-        });
-        editRide();
+    });
+
+    $("#editrideform").submit(function (event) {
+      $("#result2").hide();
+      event.preventDefault();
+      data = null;
+      data = $("#editrideform").serializeArray();
+      data.push({
+        name: "ride_id",
+        value: editId,
       });
+      data.push({ name: "distance", value: rideDistance });
+
+      console.log("edit clicked - " + editId);
+      editId = null;
+      editRide();
     });
 
     $("[id*='deletetrip']").click(function (evt) {
@@ -211,7 +222,7 @@ $(function () {
         url: "deleteRide.php",
         method: "POST",
         data: { ride_id: evt.target.getAttribute("data-ride_id") },
-        success: function () {
+        success: function (data2) {
           location.reload();
         },
         error: function () {
@@ -259,13 +270,107 @@ $(function () {
         },
       });
     });
+
+    $("[id*='rateButton']").click(function (evt) {
+      rateId = evt.target.getAttribute("data-ride_id");
+      $("#ridersListRating").html("");
+      $.ajax({
+        url: "getriderforrating.php",
+        method: "POST",
+        data: { ride_id: evt.target.getAttribute("data-ride_id") },
+        success: function (data2) {
+          $("#ridersListRating").html(data2);
+          $("#ridersListRating").hide();
+          $("#ridersListRating").fadeIn();
+
+          const ratingStars = [
+            ...document.getElementsByClassName("rating__star"),
+          ];
+
+          function executeRating(stars) {
+            const starClassActive = "rating__star fas fa-star fa-xl";
+            const starClassInactive = "rating__star far fa-star fa-xl";
+            const starsLength = stars.length;
+            let i;
+            stars.map((star) => {
+              star.onclick = (currEvt) => {
+                i = stars.indexOf(star);
+                console.log(i);
+                let clickedIdx = i;
+
+                if (star.className === starClassInactive) {
+                  for (i; i >= Math.floor(clickedIdx / 5) * 5; --i)
+                    stars[i].className = starClassActive;
+                } else {
+                  for (i = i + 1; i < Math.floor(clickedIdx / 5) * 5 + 5; ++i)
+                    stars[i].className = starClassInactive;
+                }
+
+                $.ajax({
+                  url: "rateRider.php",
+                  method: "POST",
+                  data: {
+                    ride_id: currEvt.target.getAttribute("ride-id"),
+                    rider_id: currEvt.target.getAttribute("rider-id"),
+                    rating: (clickedIdx % 5) + 1,
+                  },
+                  success: function (data2) {
+                    // alert(data2);
+                  },
+                  error: function () {
+                    // $("#result2").html(
+                    //   "<div class='alert alert-danger'>There was an error with the Ajax Call. Please try again later.</div>"
+                    // );
+                    // $("#result2").hide();
+                    // $("#result2").fadeIn();
+                  },
+                });
+              };
+            });
+          }
+          executeRating(ratingStars);
+        },
+        error: function () {
+          $("#ridersListRating").html(
+            "<div class='alert alert-danger'>There was an error with the Ajax Call. Please try again later.</div>"
+          );
+          $("#ridersListRating").hide();
+          $("#ridersListRating").fadeIn();
+        },
+      });
+    });
+
+    $("[id*='viewRidersButton']").click(function (evt) {
+      rateId = evt.target.getAttribute("data-ride_id");
+      $("#ridersList").html("");
+      $.ajax({
+        url: "getriderforviewing.php",
+        method: "POST",
+        data: { ride_id: evt.target.getAttribute("data-ride_id") },
+        success: function (data2) {
+          $("#ridersList").html(data2);
+          $("#ridersList").hide();
+          $("#ridersList").fadeIn();
+        },
+        error: function () {
+          $("#ridersList").html(
+            "<div class='alert alert-danger'>There was an error with the Ajax Call. Please try again later.</div>"
+          );
+          $("#ridersList").hide();
+          $("#ridersList").fadeIn();
+        },
+      });
+    });
   }
+
+ 
+
 
   function formatModal() {
     $("#departure2").val(ride["departure"]);
     $("#destination2").val(ride["destination"]);
     $("#price2").val(ride["price"]);
-    $("#seatsavailable2").val(ride["seatsavailable"]);
+    $("#seatsavailable2").val(ride["capacity"]);
     $('input[name="date2"]').val(ride["date"]);
     $('input[name="time2"]').val(ride["time"]);
   }
@@ -279,6 +384,10 @@ $(function () {
         if (status == google.maps.GeocoderStatus.OK) {
           departureLongitude = results[0].geometry.location.lng();
           departureLatitude = results[0].geometry.location.lat();
+          data.push({
+            name: "distance",
+            value: parseInt(document.getElementById("dist").innerText),
+          });
           data.push({ name: "departureLongitude", value: departureLongitude });
           data.push({ name: "departureLatitude", value: departureLatitude });
           getAddTripDestinationCoordinates();
