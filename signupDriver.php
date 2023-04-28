@@ -58,13 +58,13 @@ if (empty($_POST["password"])) {
 }
 
 if (empty($_POST["carMake"])) {
-    $errors .= $missingUsername;
+    $errors .= $carMake;
 } else {
     $carMake = filter_var($_POST["carMake"], FILTER_SANITIZE_STRING);
 }
 
 if (empty($_POST["carModel"])) {
-    $errors .= $missingUsername;
+    $errors .= $carModel;
 } else {
     $carModel = filter_var($_POST["carModel"], FILTER_SANITIZE_STRING);
 }
