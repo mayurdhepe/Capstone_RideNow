@@ -19,9 +19,10 @@ $ride_id = $_POST["ride_id"];
 $departure = $_POST["departure2"];
 $destination = $_POST["destination2"];
 $price = $_POST["price2"];
-$seatsavailable = $_POST["seatsavailable2"];
+// $seatsavailable = $_POST["seatsavailable2"];
 $date = $_POST["date2"];
 $time = $_POST["time2"];
+$dist = $_POST["distance"];
 
 if (!$departure) {
     $errors .= $missingdeparture;
@@ -45,15 +46,15 @@ if (!$price) {
     $price = filter_var($price, FILTER_SANITIZE_STRING);
 }
 
-if (!$seatsavailable) {
-    $errors .= $missingseatsavailable;
-} elseif (
-    preg_match('/\D/', $seatsavailable)
-) {
-    $errors .= $invalidseatsavailable;
-} else {
-    $seatsavailable = filter_var($seatsavailable, FILTER_SANITIZE_STRING);
-}
+// if (!$seatsavailable) {
+//     $errors .= $missingseatsavailable;
+// } elseif (
+//     preg_match('/\D/', $seatsavailable)
+// ) {
+//     $errors .= $invalidseatsavailable;
+// } else {
+//     $seatsavailable = filter_var($seatsavailable, FILTER_SANITIZE_STRING);
+// }
 
 if (!$date) {
     $errors .= $missingdate;
@@ -71,8 +72,17 @@ if ($errors) {
 
     $departure = mysqli_real_escape_string($link, $departure);
     $destination = mysqli_real_escape_string($link, $destination);
-    $sql = "UPDATE Rides SET `startlocation`= '$departure',`destination`='$destination',`price`='$price', `seatsavailable`='$seatsavailable', `capacity`='$seatsavailable', `date`='$date', `time`='$time'  WHERE `ride_id`='$ride_id'";
+    $sql = "UPDATE Rides SET `startlocation`= '$departure',`destination`='$destination',`price`='$price', `date`='$date', `time`='$time', `distance`='$dist'  WHERE `ride_id`='$ride_id'";
     $results = mysqli_query($link, $sql);
+
+    $sql = "SELECT email from users WHERE user_id IN (SELECT rider_id FROM RideRiders WHERE ride_id ='" . $_POST['ride_id'] . "')";
+    $result = mysqli_query($link, $sql);
+    while ($row = mysqli_fetch_array($result)) {
+        $email = $row['email'];
+        $message = "Driver modified the ride, please check.";
+        mail($email, 'Your ride has been updated', $message, 'From:' . 'gradproj@grad-project.host20.uk');
+    }
+
     if (!$results) {
         echo '<div class=" alert alert-danger">There was an error! The ride could not be updated!</div>';
     }
