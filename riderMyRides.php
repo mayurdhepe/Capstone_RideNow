@@ -3,6 +3,7 @@ session_start();
 if (!isset($_SESSION['user_id'])) {
     header("location: index.php");
 }
+include('getProfilePicture.php');
 ?>
 
 <!DOCTYPE html>
@@ -49,6 +50,37 @@ if (!isset($_SESSION['user_id'])) {
         .pac-container {
             z-index: 10000 !important;
         }
+
+        .preview {
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .preview2 {
+            height: auto;
+            max-width: 100%;
+            border-radius: 50%;
+        }
+
+        #ridelist {
+            margin-left: -15rem;
+            /* width:90vw; */
+        }
+
+        .footer {
+            margin-top: 5rem;
+            position: fixed;
+            bottom: 0px;
+        }
+
+        .rating {
+            width: 180px;
+        }
+
+        .rating__star {
+            cursor: pointer;
+            color: #dabd18b2;
+        }
     </style>
 </head>
 
@@ -65,15 +97,25 @@ if (!isset($_SESSION['user_id'])) {
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" href="profile.php">Profile</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" href="searchRide.php">Search a Ride</a></a>
+                    <a class="nav-link" href="searchRide.php">Search Rides</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">My Rides<span class="sr-only">(current)</span></a></a>
+                    <a class="nav-link" href="riderMyRides.php">My Rides</a>
                 </li>
 
 
             </ul>
             <ul class="navbar-nav">
+                <li><a href="#">
+                        <?php
+                        if (empty($picture)) {
+                            echo "<div class='image_preview'><img class='preview' src='profilepictures/noimage.jpg' /></div>";
+                        } else {
+                            echo "<div class='image_preview'><img class='preview' src='$picture' /></div>";
+                        }
+
+                        ?>
+                    </a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?logout=1">Log Out</a>
                 </li>
@@ -99,6 +141,87 @@ if (!isset($_SESSION['user_id'])) {
 
         </div>
     </div>
+
+    <form method="post" id="formRateDriver">
+        <div class="modal" id="rateDriverModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 id="myModalLabel">
+                            Rate Your Driver
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div id="driverRating">
+
+
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form method="post" id="formViewDriver">
+        <div class="modal" id="viewDriverModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 id="myModalLabel">
+                            View Driver
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div id="driverView">
+
+
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form method="post" id="formRateRiders">
+        <div class="modal" id="rateRidersModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 id="myModalLabel">
+                            Rate Your Riders
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div id="ridersListRating">
+
+
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 
 
     <form method="post" id="formAddRide">
@@ -156,6 +279,12 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </form>
 
+    <?php
+
+    include("profileTemplate.php");
+
+    ?>
+
     <div class="footer">
         <div class="container">
             <p>Fantastic-4 Copyright &copy;
@@ -168,6 +297,8 @@ if (!isset($_SESSION['user_id'])) {
     <script src="js/bootstrap.min.js"></script>
 
     <script src="ridermyride.js"></script>
+    <script src="profile.js"></script>
+    <script src="https://kit.fontawesome.com/1f2bae3960.js" crossorigin="anonymous"></script>
     <!-- <script src="googleapis.js"></script> -->
 </body>
 
