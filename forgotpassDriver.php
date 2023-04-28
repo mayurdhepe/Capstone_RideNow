@@ -7,6 +7,10 @@ include('forgotpassDriverDao.php');
 
 $missingEmail = '<p><strong>Please enter your email address!</strong></p>';
 $invalidEmail = '<p><strong>Please enter a valid email address!</strong></p>';
+$missingEmail = '<p><strong>Please enter your password!</strong></p>';
+$invalidPassword = '<p><strong>Please enter a valid password!</strong></p>';
+
+
 
 if (empty($_POST["forgotemail"])) {
     $errors .= $missingEmail;
