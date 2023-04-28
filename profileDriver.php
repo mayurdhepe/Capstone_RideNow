@@ -18,6 +18,7 @@ if ($count == 1) {
   $username = $row["username"];
   $email = $row["email"];
   $carId = $row["car_id"];
+  $picture = $row['profilepicture'];
 
   $sql = "SELECT * FROM Car WHERE id=$carId";
   $result = mysqli_query($link, $sql);
@@ -29,6 +30,27 @@ if ($count == 1) {
     $carMake = $row["carMake"];
     $carModel = $row["carModel"];
     $seats = $row["seats"];
+
+    $sql = "SELECT AVG(driverRating) FROM RideRiders WHERE ride_id IN (SELECT ride_id FROM Rides WHERE user_id=$user_id)";
+    $result = mysqli_query($link, $sql);
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    $rating = round($row["AVG(driverRating)"], 1);
+
+    $sql = "SELECT SUM(price*(capacity-seatsavailable)) as Results FROM Rides WHERE user_id=$user_id AND status = 2";
+    $result = mysqli_query($link, $sql);
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    $earnings = $row["Results"];
+
+    $sql = "SELECT SUM(distance) as TotalDistance FROM Rides WHERE user_id=$user_id AND status = 2";
+    $result = mysqli_query($link, $sql);
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    $totalDistance = $row["TotalDistance"];
+
+    $sql = "SELECT COUNT(*) as TotalTrips FROM Rides WHERE user_id=$user_id AND status = 2";
+    $result = mysqli_query($link, $sql);
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    $totalTrips = $row["TotalTrips"];
+
   } else {
     echo "There was an error retrieving the username and email from the database";
   }
@@ -50,34 +72,39 @@ if ($count == 1) {
   <style>
     #container {
       margin-top: 100px;
-    }
-
-    #notePad,
-    #allNotes,
-    #done {
-      display: none;
+      
     }
 
     .buttons {
       margin-bottom: 20px;
     }
 
-    textarea {
-      width: 100%;
-      max-width: 100%;
-      font-size: 16px;
-      line-height: 1.5em;
-      border-left-width: 20px;
-      border-color: #CA3DD9;
-      color: #CA3DD9;
-      background-color: #FBEFFF;
-      padding: 10px;
-
-    }
-
     tr {
       cursor: pointer;
     }
+
+    .preview {
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .preview2 {
+      height: auto;
+      max-width: 100%;
+      border-radius: 50%;
+    }
+    .footer {
+            margin-top: 5rem;
+            position: relative;
+            left: 0px;
+            bottom: 0px;
+        }
+
+    .rating__star {
+      cursor: pointer;
+      color: #dabd18b2;
+    }
+
   </style>
 </head>
 
@@ -92,7 +119,7 @@ if ($count == 1) {
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item"><a class="nav-link" href="profileDriver.php">Profile<span
+        <li class="nav-item active"><a class="nav-link" href="profileDriver.php">Profile<span
               class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
@@ -102,6 +129,16 @@ if ($count == 1) {
 
       </ul>
       <ul class="navbar-nav">
+        <li><a href="#">
+            <?php
+            if (empty($picture)) {
+              echo "<div class='image_preview'  data-target='#updatepicture' data-toggle='modal'><img class='preview' src='profilepictures/noimage.jpg' /></div>";
+            } else {
+              echo "<div class='image_preview' data-target='#updatepicture' data-toggle='modal'><img class='preview' src='$picture' /></div>";
+            }
+
+            ?>
+          </a></li>
         <li class="nav-item">
           <a class="nav-link" href="index.php?logout=1">Log Out</a>
         </li>
@@ -132,6 +169,32 @@ if ($count == 1) {
             <tr data-target="#updatepassword" data-toggle="modal">
               <td>Password</td>
               <td>hidden</td>
+            </tr>
+            <tr>
+              <td>Rating</td>
+              <td>
+                <?php echo $rating ?>
+                <i class="rating__star fas fa-star fa-lg"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>Total Earnings</td>
+              <td>
+                $
+                <?php echo $earnings ?>
+              </td>
+            </tr>
+            <tr>
+              <td>Distance Travelled</td>
+              <td>
+                <?php echo $totalDistance ?> Miles
+              </td>
+            </tr>
+            <tr>
+              <td>Number of Trips</td>
+              <td>
+                <?php echo $totalTrips ?>
+              </td>
             </tr>
             <tr data-target="#updateCarMake" data-toggle="modal">
               <td>Car Make</td>
@@ -364,6 +427,55 @@ if ($count == 1) {
     </div>
   </form>
 
+
+  <!-- Update Picture -->
+  <!-- <form method="post" id="updatepictureform" enctype="multipart/form-data">
+    <div class="modal" id="updatepicture" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+
+            <h4 id="myModalLabel">
+              Upload Picture:
+            </h4>
+          </div>
+          <div class="modal-body">
+            <div id="updatepicturemessage"></div>
+
+            <div>
+              <!?php
+              if (empty($picture)) {
+                echo "<div class='preview2'><img id='preview2' src='profilepictures/noimage.jpg' /></div>";
+              } else {
+                echo "<div class='preview2'><img id='preview2' src='$picture' /></div>";
+              }
+
+              ?> -->
+  <!-- </div>
+
+            <div class="form-group">
+              <label for="picture">Select a picture:</label>
+              <input type="file" name="picture" id="picture">
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <input class="btn btn-primary" name="updateusername" type="submit" value="Submit">
+            <button type="button" class="btn btn-dark" data-dismiss="modal">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form> -->
+
+  <?php
+
+  include("profileTemplate.php");
+
+  ?>
+
   <div class="footer">
     <div class="container">
       <p>Fantastic-4 Copyright &copy;
@@ -376,6 +488,7 @@ if ($count == 1) {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="profileDriver.js"></script>
+  <script src="https://kit.fontawesome.com/1f2bae3960.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
