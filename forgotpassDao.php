@@ -3,11 +3,16 @@ session_start();
 
 class ForgotDao
 {
-    function __construct(
-        
-    )
+
+    function __construct()
     {
 
+    }
+
+    function savePassword($link, $user_id, $key, $time, $status)
+    {
+        $sql = "INSERT INTO forgotpassword (`user_id`, `passkey`, `time`, `status`) VALUES ('$user_id', '$key', '$time', '$status')";
+        return mysqli_query($link, $sql);
     }
 
     function save($link, $user_id, $key, $time, $status)
