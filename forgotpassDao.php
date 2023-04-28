@@ -3,8 +3,11 @@ session_start();
 
 class ForgotDao
 {
-    function __construct()
+    function __construct(
+        
+    )
     {
+
     }
 
     function save($link, $user_id, $key, $time, $status)
